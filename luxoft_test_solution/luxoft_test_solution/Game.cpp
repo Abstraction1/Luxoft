@@ -2,9 +2,11 @@
 #include <Windows.h>
 #include <iostream>
 #include <conio.h>
+#include <ctime>
 
 Racing::Game::Game()
 {
+	srand(time(NULL));
 	track = new Racing::Track();
 	player = new Racing::Player();
 	cash = new Racing::Cash();
@@ -72,7 +74,6 @@ void Racing::Game::Print()
 	std::cout << "cash y: " << cash->y << '\n';
 	std::cout << "obstacle x: " << cash->x << '\n';
 	std::cout << "obstacle  y: " << cash->y << '\n';
-
 	std::cout << "\nPLAYER POINTS: " << player_points << '\n';
 }
 
@@ -81,7 +82,7 @@ void Racing::Game::Run()
 	while (true)
 	{
 		input();
-		Logic();
+		Logic(player_points, game_speed);
 		Initialization();
 		Print();
 		Sleep(game_speed);
@@ -123,7 +124,7 @@ void Racing::Game::clearscreen()
 	SetConsoleCursorPosition(hOut, Position);
 }
 
-void Racing::Game::Logic()
+void Racing::Game::Logic(int& points, int& speed)
 {
 	switch (dir)
 	{
@@ -134,10 +135,10 @@ void Racing::Game::Logic()
 		player->y = player->y + 2;
 		break;
 	case Racing::Game::UP:
-		game_speed -= 5;
+		speed -= 5;
 		break;
 	case Racing::Game::DOWN:
-		game_speed -= 5;
+		speed -= 5;
 		break;
 	}
 	//player
@@ -168,18 +169,18 @@ void Racing::Game::Logic()
 	}
 	if (cash->x == player->x && cash->y == player->y)
 	{
-		player_points+=10;
+		points +=10;
 	}
 
 	//obstracle
 	obstacle->x++;
-	if (obstacle->x >= track->WIDTH - 1)
+	if (obstacle->x == track->WIDTH	- 1)
 	{
-		obstacle->x = 0;
+		obstacle->x = 1;
 		obstacle->y = rand() % 16 + 2;
 	}
 	if (obstacle->x == player->x && obstacle->y == player->y)
 	{
-		player_points -= 10;
+		points -= 10;
 	}
 }

@@ -15,6 +15,7 @@ namespace Racing
 	public:
 		int player_points;
 		int game_speed;
+		int speedometer;
 		Racing::Track * track;
 		Racing::Player * player;
 		Racing::Cash * cash;
@@ -24,7 +25,7 @@ namespace Racing
 		e_direct dir;
 
 		Game();
-		void Logic();
+		void Logic(int& points, int& speed);
 		void Initialization();
 		void Print();
 		void Run();
