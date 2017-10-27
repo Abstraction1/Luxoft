@@ -8,8 +8,7 @@ namespace Racing
 		int x;
 		int y;
 		char cash_symb = '$';
-
+		
 		Cash();
-		~Cash();
 	};
 }
