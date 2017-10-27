@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/luxoft_test_solution/luxoft_test_solution.sln
+/luxoft_test_solution/luxoft_test_solution/luxoft_test_solution.vcxproj
+/luxoft_test_solution/luxoft_test_solution/luxoft_test_solution.vcxproj.filters
