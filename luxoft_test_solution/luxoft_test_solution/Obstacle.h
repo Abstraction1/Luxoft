@@ -6,7 +6,7 @@ namespace Racing
 	public:
 		int x;
 		int y;
-		char car = 'E';
+		char car = '-';
 		char left_board = '|';
 		char right_board = '|';
 		char wheels = 'o';
