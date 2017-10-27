@@ -2,6 +2,6 @@
 
 Racing::Player::Player()
 {
-	x = 17;
+	x = 15;
 	y = 5;
 }

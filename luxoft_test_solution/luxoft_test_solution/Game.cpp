@@ -7,6 +7,7 @@
 Racing::Game::Game()
 {
 	srand(time(NULL));
+
 	track = new Racing::Track();
 	player = new Racing::Player();
 	cash = new Racing::Cash();
@@ -15,7 +16,9 @@ Racing::Game::Game()
 	track->CreateTrack();
 
 	player_points = 0;
-	game_speed = 150;
+	game_speed = 200;
+	speedometer = 50;
+	crash_meter = 0;
 
 	Run();
 }
@@ -67,14 +70,12 @@ void Racing::Game::Print()
 		}
 		std::cout << std::endl;
 	}
+	std::cout << "X : " << obstacle->x << '\n';
+	std::cout << "Y : " << obstacle->y << '\n';
 
-	std::cout << "player x: " << player->x << '\n';
-	std::cout << "player y: " << player->y << '\n';
-	std::cout << "cash x: " << cash->x << '\n';
-	std::cout << "cash y: " << cash->y << '\n';
-	std::cout << "obstacle x: " << cash->x << '\n';
-	std::cout << "obstacle  y: " << cash->y << '\n';
-	std::cout << "\nPLAYER POINTS: " << player_points << '\n';
+	std::cout << "\nSpeedometr : " << speedometer << '\n';
+	std::cout << "\nPoints: " << player_points;
+	std::cout << "\nCrash meter : " << crash_meter;
 }
 
 void Racing::Game::Run()
@@ -82,7 +83,7 @@ void Racing::Game::Run()
 	while (true)
 	{
 		input();
-		Logic(player_points, game_speed);
+		Logic(player_points, game_speed, speedometer, crash_meter);
 		Initialization();
 		Print();
 		Sleep(game_speed);
@@ -124,7 +125,7 @@ void Racing::Game::clearscreen()
 	SetConsoleCursorPosition(hOut, Position);
 }
 
-void Racing::Game::Logic(int& points, int& speed)
+void Racing::Game::Logic(int& points, int& speed, int& speedometer, int& crash_meter)
 {
 	switch (dir)
 	{
@@ -136,39 +137,49 @@ void Racing::Game::Logic(int& points, int& speed)
 		break;
 	case Racing::Game::UP:
 		speed -= 5;
+		speedometer += 5;
 		break;
 	case Racing::Game::DOWN:
-		speed -= 5;
+		speed += 5;
+		speedometer -= 5;
 		break;
 	}
+
 	//player
 	if (player->y <= 2)
 	{
 		player->y = 2;
 	}
-	if (player->y >= 16)
+	if (player->y >= track->WIDTH - 4)
 	{
-		player->y = 16;
+		player->y = track->WIDTH - 4;
 	}
 	if (player->x <= 1)
 	{
 		player->x = 1;
 	}
-	if (player->x >= 18)
+	if (player->x >= track->WIDTH - 2)
 	{
-		player->x = 18;
+		player->x = track->WIDTH - 2;
 	}
 
 	//cash 
-	cash->x++;
-
+	cash->x+=2;
 	if (cash->x >= track->WIDTH - 1)
 	{
 		cash->x = 0;
 		cash->y = rand () % 16 + 1;
 	}
-	if (cash->x == player->x && cash->y == player->y)
+	if (cash->x == player->x && cash->y == player->y ||
+		cash->x == player->x + 1 && cash->y == player->y ||
+		cash->x == player->x - 1 && cash->y == player->y ||
+		cash->x == player->x + 1 && cash->y + 1== player->y ||
+		cash->x == player->x + 1 && cash->y - 1 == player->y ||
+		cash->x == player->x - 1 && cash->y + 1 == player->y ||
+		cash->x == player->x - 1 && cash->y - 1 == player->y)
 	{
+		cash->x = 0;
+		cash->y = rand() % 16 + 1;
 		points +=10;
 	}
 
@@ -177,10 +188,15 @@ void Racing::Game::Logic(int& points, int& speed)
 	if (obstacle->x == track->WIDTH	- 1)
 	{
 		obstacle->x = 1;
-		obstacle->y = rand() % 16 + 2;
+		obstacle->y = rand() % 15 + 2;
 	}
-	if (obstacle->x == player->x && obstacle->y == player->y)
+	if (obstacle->x + 1 == player->x + 1 && obstacle->y - 1 == player->y - 1 ||
+		obstacle->x - 1 == player->x + 1 && obstacle->y + 1 == player->y + 1 ||
+		obstacle->x == player->x && obstacle->y == player->y ) 
 	{
+		obstacle->x = 1;
+		obstacle->y = rand() % 15 + 2;
 		points -= 10;
+		crash_meter++;
 	}
 }
