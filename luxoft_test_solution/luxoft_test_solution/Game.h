@@ -2,6 +2,7 @@
 
 #include "Track.h"
 #include "Player.h"
+#include "Cash.h"
 
 namespace Racing
 {
@@ -15,7 +16,8 @@ namespace Racing
 		int game_speed;
 		Racing::Track * track;
 		Racing::Player * player;
-		
+		Racing::Cash * cash;
+
 		enum e_direct { STOP = 0, LEFT, RIGHT, UP, DOWN };
 		e_direct dir;
 

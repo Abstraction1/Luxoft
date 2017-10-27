@@ -6,8 +6,11 @@
 Racing::Game::Game()
 {
 	track = new Racing::Track();
-	player = new Racing::Player();	
+	player = new Racing::Player();
+	cash = new Racing::Cash();
+
 	track->CreateTrack();
+
 	player_points = 0;
 	game_speed = 150;
 
@@ -17,6 +20,7 @@ Racing::Game::Game()
 void Racing::Game::Initialization()
 {
 	dir = STOP;
+
 	//track initialization
 	for (int i = 0; i < track->HEIGHT; i++)
 	{
@@ -37,7 +41,9 @@ void Racing::Game::Initialization()
 	track->area[player->x + 1][player->y - 1] = player->wheels;
 	track->area[player->x + 1][player->y + 1] = player->wheels;
 
-	
+	//cash initialization
+	track->area[cash->x][cash->y] = cash->cash_symb;
+
 	//osbtracle initialization
 	//track->area[obstracle->x][obstracle->y] = obstracle->car;
 	//track->area[obstracle->x][obstracle->y - 1] = obstracle->left_board;
@@ -61,7 +67,8 @@ void Racing::Game::Print()
 
 	std::cout << "player x: " << player->x << '\n';
 	std::cout << "player y: " << player->y << '\n';
-	
+	std::cout << "cash x: " << cash->x << '\n';
+	std::cout << "cash y: " << cash->y << '\n';
 	
 	std::cout << "\nPLAYER POINTS: " << player_points << '\n';
 }
@@ -147,4 +154,6 @@ void Racing::Game::Logic()
 	{
 		player->x = 18;
 	}
+
+	//cash->x++;
 }
