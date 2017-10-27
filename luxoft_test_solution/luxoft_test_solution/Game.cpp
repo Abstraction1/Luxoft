@@ -8,6 +8,7 @@ Racing::Game::Game()
 	track = new Racing::Track();
 	player = new Racing::Player();
 	cash = new Racing::Cash();
+	obstacle = new Racing::Obstacle();
 
 	track->CreateTrack();
 
@@ -45,13 +46,13 @@ void Racing::Game::Initialization()
 	track->area[cash->x][cash->y] = cash->cash_symb;
 
 	//osbtracle initialization
-	//track->area[obstracle->x][obstracle->y] = obstracle->car;
-	//track->area[obstracle->x][obstracle->y - 1] = obstracle->left_board;
-	//track->area[obstracle->x][obstracle->y + 1] = obstracle->right_board;
-	//track->area[obstracle->x - 1][obstracle->y - 1] = obstracle->wheels;
-	//track->area[obstracle->x - 1][obstracle->y + 1] = obstracle->wheels;
-	//track->area[obstracle->x + 1][obstracle->y - 1] = obstracle->wheels;
-	//track->area[obstracle->x + 1][obstracle->y + 1] = obstracle->wheels;
+	track->area[obstacle->x][obstacle->y] = obstacle->car;
+	track->area[obstacle->x][obstacle->y - 1] = obstacle->left_board;
+	track->area[obstacle->x][obstacle->y + 1] = obstacle->right_board;
+	track->area[obstacle->x - 1][obstacle->y - 1] = obstacle->wheels;
+	track->area[obstacle->x - 1][obstacle->y + 1] = obstacle->wheels;
+	track->area[obstacle->x + 1][obstacle->y - 1] = obstacle->wheels;
+	track->area[obstacle->x + 1][obstacle->y + 1] = obstacle->wheels;
 }
 
 void Racing::Game::Print()
@@ -165,11 +166,20 @@ void Racing::Game::Logic()
 		cash->x = 0;
 		cash->y = rand () % 16 + 1;
 	}
-
 	if (cash->x == player->x && cash->y == player->y)
 	{
 		player_points+=10;
 	}
 
 	//obstracle
+	obstacle->x++;
+	if (obstacle->x >= track->WIDTH - 1)
+	{
+		obstacle->x = 0;
+		obstacle->y = rand() % 16 + 2;
+	}
+	if (obstacle->x == player->x && obstacle->y == player->y)
+	{
+		player_points -= 10;
+	}
 }
