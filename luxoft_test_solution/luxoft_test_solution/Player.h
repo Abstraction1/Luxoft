@@ -6,3 +6,4 @@ namespace Racing
 	private:
 	public:
 	};
+}
