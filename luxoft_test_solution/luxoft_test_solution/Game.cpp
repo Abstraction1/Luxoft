@@ -69,7 +69,9 @@ void Racing::Game::Print()
 	std::cout << "player y: " << player->y << '\n';
 	std::cout << "cash x: " << cash->x << '\n';
 	std::cout << "cash y: " << cash->y << '\n';
-	
+	std::cout << "obstacle x: " << cash->x << '\n';
+	std::cout << "obstacle  y: " << cash->y << '\n';
+
 	std::cout << "\nPLAYER POINTS: " << player_points << '\n';
 }
 
@@ -137,7 +139,7 @@ void Racing::Game::Logic()
 		game_speed -= 5;
 		break;
 	}
-
+	//player
 	if (player->y <= 2)
 	{
 		player->y = 2;
@@ -155,5 +157,19 @@ void Racing::Game::Logic()
 		player->x = 18;
 	}
 
-	//cash->x++;
+	//cash 
+	cash->x++;
+
+	if (cash->x >= track->WIDTH - 1)
+	{
+		cash->x = 0;
+		cash->y = rand () % 16 + 1;
+	}
+
+	if (cash->x == player->x && cash->y == player->y)
+	{
+		player_points+=10;
+	}
+
+	//obstracle
 }

@@ -4,7 +4,7 @@
 Racing::Cash::Cash()
 {
 	x = 0;
-	y = 1;
+	y = rand ()%  16 + 1;
 }
 
 
