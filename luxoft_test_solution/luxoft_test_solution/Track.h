@@ -3,7 +3,13 @@ namespace Racing
 {
 	class Track
 	{
-	private:
 	public:
+		int WIDTH;
+		int HEIGHT;
+		char** area;
+
+		Track();
+		~Track();
+		void CreateTrack();
 	};
 }
