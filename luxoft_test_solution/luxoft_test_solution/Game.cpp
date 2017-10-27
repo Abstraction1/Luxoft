@@ -15,10 +15,10 @@ Racing::Game::Game()
 
 	track->CreateTrack();
 
+	game_over = false;
 	player_points = 0;
 	game_speed = 200;
 	speedometer = 50;
-	crash_meter = 0;
 
 	Run();
 }
@@ -75,15 +75,14 @@ void Racing::Game::Print()
 
 	std::cout << "\nSpeedometr : " << speedometer << '\n';
 	std::cout << "\nPoints: " << player_points;
-	std::cout << "\nCrash meter : " << crash_meter;
 }
 
 void Racing::Game::Run()
 {
-	while (true)
+	while (!game_over)
 	{
 		input();
-		Logic(player_points, game_speed, speedometer, crash_meter);
+		Logic(player_points, game_speed, speedometer, play_stop);
 		Initialization();
 		Print();
 		Sleep(game_speed);
@@ -109,6 +108,9 @@ void Racing::Game::input()
 		case 'd':
 			dir = RIGHT;
 			break;
+		case 27:
+			game_over = true;
+			break;
 		}
 	}
 }
@@ -125,7 +127,7 @@ void Racing::Game::clearscreen()
 	SetConsoleCursorPosition(hOut, Position);
 }
 
-void Racing::Game::Logic(int& points, int& speed, int& speedometer, int& crash_meter)
+void Racing::Game::Logic(int& points, int& speed, int& speedometer, char& play_stop)
 {
 	switch (dir)
 	{
@@ -144,6 +146,7 @@ void Racing::Game::Logic(int& points, int& speed, int& speedometer, int& crash_m
 		speedometer -= 5;
 		break;
 	}
+
 
 	//player
 	if (player->y <= 2)
@@ -194,9 +197,6 @@ void Racing::Game::Logic(int& points, int& speed, int& speedometer, int& crash_m
 		obstacle->x - 1 == player->x + 1 && obstacle->y + 1 == player->y + 1 ||
 		obstacle->x == player->x && obstacle->y == player->y ) 
 	{
-		obstacle->x = 1;
-		obstacle->y = rand() % 15 + 2;
-		points -= 10;
-		crash_meter++;
+		game_over = true;
 	}
 }

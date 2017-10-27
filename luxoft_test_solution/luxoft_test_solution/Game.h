@@ -13,10 +13,11 @@ namespace Racing
 	class Game
 	{
 	public:
+		bool game_over;
 		int player_points;
 		int game_speed;
 		int speedometer;
-		int crash_meter;
+		char play_stop;
 
 		Racing::Track * track;
 		Racing::Player * player;
@@ -27,7 +28,7 @@ namespace Racing
 		e_direct dir;
 
 		Game();
-		void Logic(int& points, int& speed, int& speedometer, int& crash_meter);
+		void Logic(int& points, int& speed, int& speedometer, char& play_stop);
 		void Initialization();
 		void Print();
 		void Run();
