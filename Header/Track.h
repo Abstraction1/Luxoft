@@ -1,5 +1,5 @@
 #pragma once
-namespace Racing
+namespace racing
 {
 	class Track
 	{

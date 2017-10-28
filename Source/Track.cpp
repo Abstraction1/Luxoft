@@ -1,13 +1,13 @@
 #include "Track.h"
 
-Racing::Track::Track()
+racing::Track::Track()
 {
 	WIDTH = 20;
 	HEIGHT = 20;
 	area = 0;
 }
 
-Racing::Track::~Track()
+racing::Track::~Track()
 {
 	for (int i = 0; i < WIDTH; i++)
 	{
@@ -16,7 +16,7 @@ Racing::Track::~Track()
 	delete[] area;
 }
 
-void Racing::Track::CreateTrack()
+void racing::Track::CreateTrack()
 {
 	area = new char*[HEIGHT];
 	for (int i = 0; i < WIDTH; i++)

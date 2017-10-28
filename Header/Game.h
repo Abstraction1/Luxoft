@@ -5,7 +5,7 @@
 #include "Cash.h"
 #include "Obstacle.h"
 
-namespace Racing
+namespace racing
 {
 	class Player;
 	class Track;
@@ -19,10 +19,10 @@ namespace Racing
 		int speedometer;
 		char play_stop;
 
-		Racing::Track * track;
-		Racing::Player * player;
-		Racing::Cash * cash;
-		Racing::Obstacle * obstacle;
+		racing::Track * track;
+		racing::Player * player;
+		racing::Cash * cash;
+		racing::Obstacle * obstacle;
 
 		enum e_direct { STOP = 0, LEFT, RIGHT, UP, DOWN };
 		e_direct dir;

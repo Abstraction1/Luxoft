@@ -1,7 +1,7 @@
-#include "Game.h"
+#include "Header/Game.h"
 
 int main()
 {	
-	Racing::Game game;
+	racing::Game game;
 	return 0;
 }

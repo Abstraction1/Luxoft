@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Racing::Player::Player()
+racing::Player::Player()
 {
 	x = 15;
 	y = 5;

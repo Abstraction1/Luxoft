@@ -1,17 +1,18 @@
-#include "Game.h"
+#include "Header/Player.h"
+
 #include <Windows.h>
 #include <iostream>
 #include <conio.h>
 #include <ctime>
 
-Racing::Game::Game()
+racing::Game::Game()
 {
 	srand(time(NULL));
 
-	track = new Racing::Track();
-	player = new Racing::Player();
-	cash = new Racing::Cash();
-	obstacle = new Racing::Obstacle();
+	track = new racing::Track();
+	player = new racing::Player();
+	cash = new racing::Cash();
+	obstacle = new racing::Obstacle();
 
 	track->CreateTrack();
 
@@ -23,7 +24,7 @@ Racing::Game::Game()
 	Run();
 }
 
-void Racing::Game::Initialization()
+void racing::Game::Initialization()
 {
 	dir = STOP;
 
@@ -60,7 +61,7 @@ void Racing::Game::Initialization()
 	track->area[obstacle->x + 1][obstacle->y + 1] = obstacle->wheels;
 }
 
-void Racing::Game::Print()
+void racing::Game::Print()
 {
 	for (int i = 0; i < track->HEIGHT; i++)
 	{
@@ -77,7 +78,7 @@ void Racing::Game::Print()
 	std::cout << "\nPoints: " << player_points;
 }
 
-void Racing::Game::Run()
+void racing::Game::Run()
 {
 	while (!game_over)
 	{
@@ -90,7 +91,7 @@ void Racing::Game::Run()
 	}
 }
 
-void Racing::Game::input()
+void racing::Game::input()
 {
 	while (_kbhit())
 	{
@@ -115,7 +116,7 @@ void Racing::Game::input()
 	}
 }
 
-void Racing::Game::clearscreen()
+void racing::Game::clearscreen()
 {
 	HANDLE hOut;
 	COORD Position;
@@ -127,21 +128,21 @@ void Racing::Game::clearscreen()
 	SetConsoleCursorPosition(hOut, Position);
 }
 
-void Racing::Game::Logic(int& points, int& speed, int& speedometer, char& play_stop)
+void racing::Game::Logic(int& points, int& speed, int& speedometer, char& play_stop)
 {
 	switch (dir)
 	{
-	case Racing::Game::LEFT:
+	case racing::Game::LEFT:
 		player->y = player->y - 2;
 		break;
-	case Racing::Game::RIGHT:
+	case racing::Game::RIGHT:
 		player->y = player->y + 2;
 		break;
-	case Racing::Game::UP:
+	case racing::Game::UP:
 		speed -= 5;
 		speedometer += 5;
 		break;
-	case Racing::Game::DOWN:
+	case racing::Game::DOWN:
 		speed += 5;
 		speedometer -= 5;
 		break;
