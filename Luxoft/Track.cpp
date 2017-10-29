@@ -1,13 +1,23 @@
 #include "Track.h"
+#include "Player.h"
+#include "Cash.h"
 
 racing::Track::Track()
 {
-	
+	width_ = 20;
+	height_ = 20;
+	Initialization(width_, height_);
 }
 
 racing::Track::~Track()
 {
+	int i;
+	
+	for (i = 0; i < width_; i++) {
+		delete[i] trackArea_;
+	}
 
+	delete[] trackArea_;
 }
 
 int racing::Track::GetWidth() const
@@ -22,12 +32,28 @@ int racing::Track::GetHeight() const
 
 void racing::Track::Initialization(const int & width, const int & height)
 {
-	int i = 0;
-
-	trackArea_ = new char*[height_];
-	for (i = 0; i < width_; i++) {
-		trackArea_[i] = new char[width_];
+	int i;
+	trackArea_ = new char*[width];
+	for (i = 0; i < height; i++) {
+		trackArea_[i] = new char[height];
 	}
 }
+
+const char ** racing::Track::GetArea()
+{
+	return trackArea_;
+}
+
+void racing::Track::SetArea(const int& coordX, const int& coordY)
+{
+	int i, j;
+	for (i = 0; i < width_; i++) {
+		for (j = 0; j < height_; j++) {
+			trackArea_[i][j] = 
+		}
+	}
+}
+
+
 
 

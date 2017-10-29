@@ -8,15 +8,16 @@ namespace racing
 		Player();
 		int GetX() const;
 		int GetY() const;
-		char GetPlayerCentrSymb() const;
-		char GetPlayerBoardSymb() const;
-		char GetPlayerWheelsSymb() const;
-		void SetStartCoord(const int playerCoordX, const int playerCoordY);
+		char GetCentrSymb() const;
+		char GetBoardSymb() const;
+		char GetWheelsSymb() const;
+		void SetStartCoord(const int coordX, const int coordY);
+		~Player();
 	private:
 		int coordX_;
 		int coordY_;
-		char centrSymb;
-		char boardSymb;
-		char wheelsSymb;
+		char centrSymb_;
+		char boardSymb_;
+		char wheelsSymb_;
 	};
 }
