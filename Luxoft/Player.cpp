@@ -2,7 +2,7 @@
 
 racing::Player::Player()
 {
-	symb_ = new char[2];
+	symb_ = new char[3];
 	symb_[0] = 'X';
 	symb_[1] = '|';
 	symb_[2] = 'o';

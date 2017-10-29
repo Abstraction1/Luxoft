@@ -2,7 +2,7 @@
 
 racing::Obstacle::Obstacle()
 {
-	symb_ = new char[3];
+
 	symb_[0] = '|';
 	symb_[1] = 'X';
 	symb_[2] = 'o';

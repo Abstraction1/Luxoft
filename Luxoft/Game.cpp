@@ -39,8 +39,8 @@ void racing::Game::Initialization()
 	char* obstSymb = obstacle_->GetSymb();
 
 	track_->SetArea(playerX, playerY, playerSymb);
-	track_->SetArea(obstacleX, obstacleY, obstSymb);
-	track_->SetArea(cashX, cashY, cashSymb);
+	//track_->SetArea(obstacleX, obstacleY, obstSymb);
+	//track_->SetArea(cashX, cashY, cashSymb);
 }
 
 void racing::Game::Print()
@@ -62,8 +62,8 @@ void racing::Game::Run()
 {
 	while (!isGameOver_)
 	{
-		Input();
-		Logic(playerPoints_, gameSpeed_, speedometer_, playStop_);
+		//Input();
+		//Logic(playerPoints_, gameSpeed_, speedometer_, playStop_);
 		Initialization();
 		Print();
 		Sleep(gameSpeed_);
