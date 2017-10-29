@@ -11,7 +11,8 @@ namespace racing
 	{
 	public:
 		Game();
-		void Logic(int& points, int& speed, int& speedometer, char& playStop);
+		void Logic(int& points, int& speed, 
+					int& speedometer, char& playStop);
 		void Initialization();
 		void Print();
 		void Run();
@@ -29,7 +30,8 @@ namespace racing
 		char exitGame_;
 		char playStop_;
 		char** trackArea_;
-		enum e_direct { DIR_STOP = 0, DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN, DIR_EXIT };
+		enum e_direct { DIR_STOP = 0, DIR_LEFT, DIR_RIGHT, DIR_UP, 
+						DIR_DOWN, DIR_EXIT };
 		e_direct DIR;
 	};
 }

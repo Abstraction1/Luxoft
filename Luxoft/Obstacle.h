@@ -13,7 +13,7 @@ namespace racing
 			return coordY_;
 		}
 		char* GetSymb() const {
-			return symbols_;
+			return symb_;
 		}
 		void SetStartCoord(const int coordX, const int coordY);
 	private:

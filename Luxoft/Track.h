@@ -21,8 +21,10 @@ namespace racing
 		{
 			return trackArea_;
 		}
-		void Initialization(const int& width, const int& height);
-		void SetArea(const int& coordX, const int& coordY, const char* symb);
+		void Initialization(const int& width, const int& 
+			height);
+		void SetArea(const int& coordX, const int& coordY, 
+			         const char* symb);
 		~Track();
 	private:
 		int width_;

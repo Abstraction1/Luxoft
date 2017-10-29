@@ -16,8 +16,22 @@ void racing::Player::SetStartCoord(const int playerX, const int playerY)
 	coordY_ = playerY;
 }
 
+
+racing::Player& racing::Player::operator--()
+{
+	coordY_--;
+	return *this;
+}
+
+racing::Player & racing::Player::operator++()
+{
+	coordY_++;
+	return *this;
+}
+
 racing::Player::~Player()
 {
 	delete[] symb_;
 }
+
 

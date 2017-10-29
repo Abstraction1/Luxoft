@@ -108,15 +108,16 @@ void racing::Game::clearScreen()
 	SetConsoleCursorPosition(hout, position);
 }
 
-void racing::Game::Logic(int & points, int & speed, int & speedometer, char & playStop)
+void racing::Game::Logic(int & points, int & speed,
+						 int & speedometer, char & playStop)
 {
 	switch (DIR)
 	{
 	case racing::Game::DIR_LEFT:
-		player->y = player->y - 2;
+		player_--;
 		break;
 	case racing::Game::DIR_RIGHT:
-		player->y = player->y + 2;
+		player_++;
 		break;
 	case racing::Game::DIR_UP:
 		speed -= 5;

@@ -21,7 +21,7 @@ racing::Track::~Track()
 	delete[] trackArea_;
 }
 
-void racing::Track::Initialization(const int & width, const int & height)
+void racing::Track::Initialization(const int& width, const int& height)
 {
 	int i, j;
 	trackArea_ = new char*[width];
@@ -37,7 +37,8 @@ void racing::Track::Initialization(const int & width, const int & height)
 	}
 }
 
-void racing::Track::SetArea(const int& coordX, const int& coordY, const char* symb)
+void racing::Track::SetArea(const int& coordX, const int& coordY, 
+							const char* symb)
 {
 	trackArea_[coordX][coordY] = symb[0];
 	trackArea_[coordX + 1][coordY] = symb[1];

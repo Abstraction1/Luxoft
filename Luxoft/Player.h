@@ -19,6 +19,8 @@ namespace racing
 			return symb_;
 		}
 		void SetStartCoord(const int coordX, const int coordY);
+		Player& Player::operator--();
+		Player& Player::operator++();
 		~Player();
 	private:
 		int coordX_;
