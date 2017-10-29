@@ -1,3 +1,4 @@
+
 #pragma once
 
 namespace racing
@@ -8,7 +9,7 @@ namespace racing
 		int x;
 		int y;
 		char cash_symb = '$';
-		
+
 		Cash();
 	};
 }
