@@ -12,13 +12,12 @@ namespace racing
 	public:
 		Game();
 		void Logic(int& points, int& speed, int& speedometer, char& playStop);
-		void Initialization(racing::Track& track, racing::Player& player,
-							racing::Obstacle& obstacle, racing::Cash& cash);
-		void Print();
+		void Initialization(racing::Track* track, racing::Player* player,
+							racing::Obstacle* obstacle, racing::Cash* cash);
+		void Print(const racing::Track* track);
 		void Run();
 		void Input();
 		void clearScreen();
-		~Game();
 	private:
 		racing::Track* track_;
 		racing::Player* player_;
@@ -30,7 +29,7 @@ namespace racing
 		int  speedometer_;
 		char exitGame_;
 		char playStop_;
-		//char** trackArea_;
+		char** trackArea_;
 		enum DIR { DIR_STOP = 0, DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN };
 		DIR dir;
 	};

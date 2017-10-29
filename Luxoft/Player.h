@@ -12,7 +12,6 @@ namespace racing
 		char GetBoardSymb() const;
 		char GetWheelsSymb() const;
 		void SetStartCoord(const int coordX, const int coordY);
-		~Player();
 	private:
 		int coordX_;
 		int coordY_;

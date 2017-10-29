@@ -39,17 +39,17 @@ void racing::Track::Initialization(const int & width, const int & height)
 	}
 }
 
-const char ** racing::Track::GetArea()
+char ** racing::Track::GetArea() const
 {
 	return trackArea_;
 }
 
-void racing::Track::SetArea(const int& coordX, const int& coordY)
+void racing::Track::SetArea(const int& coordX, const int& coordY, const char symb)
 {
 	int i, j;
 	for (i = 0; i < width_; i++) {
 		for (j = 0; j < height_; j++) {
-			trackArea_[i][j] = 
+			trackArea_[i][j] = symb;
 		}
 	}
 }

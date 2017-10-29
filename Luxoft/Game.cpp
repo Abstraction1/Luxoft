@@ -22,23 +22,26 @@ racing::Game::Game()
 	playerPoints_ = NULL;
 	gameSpeed_ = 200;
 	speedometer_ = 50;
-	exitGame_ = '27';
-	//DIR = DIR_STOP;
+	exitGame_ = 27;
 	Run();
 }
 
-void racing::Game::Initialization(racing::Track & track, racing::Player & player,
-									racing::Obstacle & obstacle, racing::Cash & cash)
+void racing::Game::Initialization(racing::Track * track, racing::Player * player,
+									racing::Obstacle * obstacle, racing::Cash * cash)
 {
-	int playerX = player.GetX();
-	int playerY = player.GetY();
-	int cashX = track.GetWidth();
-	int cashY = track.GetHeight();
-	int obstacleX = obstacle.GetX();
-	int obstacleY = obstacle.GetY();
+	int playerX = player->GetX();
+	int playerY = player->GetY();
+	int cashX = track->GetWidth();
+	int cashY = track->GetHeight();
+	int obstacleX = obstacle->GetX();
+	int obstacleY = obstacle->GetY();
+	char playerCentrSymb = player->GetCentrSymb();
 
-	track.SetArea(playerX, playerY);
-	track.SetArea(cashX, cashY);
+	trackArea_ = track->GetArea();
+
+	track->SetArea(playerX, playerY, playerCentrSymb);
+	
+	//track.SetArea(cashX, cashY);
 
 	/*track->area[player->x][player->y - 1] = player->left_board;
 	track->area[player->x][player->y + 1] = player->right_board;
@@ -58,13 +61,17 @@ void racing::Game::Initialization(racing::Track & track, racing::Player & player
 	track->area[obstacle->x + 1][obstacle->y + 1] = obstacle->wheels;*/
 }
 
-void racing::Game::Print()
+void racing::Game::Print(const racing::Track* track)
 {
 	int i, j;
-	for (i = 0; i < track->GetHeight(); i++) {
-		for (j = 0; j < track->GetWidth(); j++) { 
-			
+	int width = track->GetWidth();
+	int height = track->GetHeight();
+
+	for (i = 0; i < width; i++) {
+		for (j = 0; j < height; j++) {
+			std::cout << trackArea_[i][j];
 		}
+		std::cout << std::endl;
 	}
 }
 
@@ -74,8 +81,8 @@ void racing::Game::Run()
 	{
 		Input();
 		Logic(playerPoints_, gameSpeed_, speedometer_, playStop_);
-		Initialization();
-		Print();
+		Initialization(track_, player_, obstacle_, cash_);
+		Print(track_);
 		Sleep(gameSpeed_);
 		clearScreen();
 	}
@@ -120,7 +127,7 @@ void racing::Game::clearScreen()
 
 void racing::Game::Logic(int & points, int & speed, int & speedometer, char & playStop)
 {
-	switch (dir)
+	/*switch (dir)
 	{
 	case racing::Game::DIR_LEFT:
 		player->y = player->y - 2;
@@ -137,52 +144,52 @@ void racing::Game::Logic(int & points, int & speed, int & speedometer, char & pl
 		speedometer -= 5;
 		break;
 	}
-
+*/
 	//player
-	if (player->y <= 2)
-	{
-		player->y = 2;
-	}
-	if (player->y >= track->WIDTH - 4)
-	{
-		player->y = track->WIDTH - 4;
-	}
-	if (player->x <= 1)
-	{
-		player->x = 1;
-	}
-	if (player->x >= track->WIDTH - 2)
-	{
-		player->x = track->WIDTH - 2;
-	}
+	//if (player->y <= 2)
+	//{
+	//	player->y = 2;
+	//}
+	//if (player->y >= track->WIDTH - 4)
+	//{
+	//	player->y = track->WIDTH - 4;
+	//}
+	//if (player->x <= 1)
+	//{
+	//	player->x = 1;
+	//}
+	//if (player->x >= track->WIDTH - 2)
+	//{
+	//	player->x = track->WIDTH - 2;
+	//}
 
-	//cash
-	Cash()->x += 2;
-	if (Cash()->x >= track->WIDTH - 1)
-	{
-		Cash()->x = 0;
-		Cash()->y = rand() % 16 + 1;
-	}
-	if (MyMethod();
+	////cash
+	//Cash()->x += 2;
+	//if (Cash()->x >= track->WIDTH - 1)
+	//{
+	//	Cash()->x = 0;
+	//	Cash()->y = rand() % 16 + 1;
+	//}
+	//if (MyMethod();
 
-		Cash()->x = 0;
-		Cash()->y = rand() % 16 + 1;
-		points += 10;
-	}
+	//	Cash()->x = 0;
+	//	Cash()->y = rand() % 16 + 1;
+	//	points += 10;
+	//}
 
-	//obstacke
-	obstacle->x++;
-	if (obstacle->x == track->WIDTH - 1)
-	{
-		obstacle->x = 1;
-		obstacle->y = rand() % 15 + 2;
-	}
-	if (obstacle->x + 1 == player->x + 1 && obstacle->y - 1 == player->y - 1 ||
-		obstacle->x - 1 == player->x + 1 && obstacle->y + 1 == player->y + 1 ||
-		obstacle->x == player->x && obstacle->y == player->y)
-	{
-		gameSpeed_ = true;
-	}
+	////obstacke
+	//obstacle->x++;
+	//if (obstacle->x == track->WIDTH - 1)
+	//{
+	//	obstacle->x = 1;
+	//	obstacle->y = rand() % 15 + 2;
+	//}
+	//if (obstacle->x + 1 == player->x + 1 && obstacle->y - 1 == player->y - 1 ||
+	//	obstacle->x - 1 == player->x + 1 && obstacle->y + 1 == player->y + 1 ||
+	//	obstacle->x == player->x && obstacle->y == player->y)
+	//{
+	//	gameSpeed_ = true;
+	//}
 }
 
 
