@@ -12,7 +12,7 @@ int racing::Player::GetX() const
 
 int racing::Player::GetY() const
 {
-	return playerCoordY_;
+	return coordY_;
 }
 
 char racing::Player::GetPlayerCentrSymb() const
@@ -27,12 +27,12 @@ char racing::Player::GetPlayerBoardSymb() const
 
 char racing::Player::GetPlayerWheelsSymb() const
 {
-	return playerWheelsSymb;
+	return wheelsSymb;
 }
 
 void racing::Player::SetStartCoord(const int playerCoordX, const int playerCoordY)
 {
 	playerCoordX_ = playerCoordX;
-	playerCoordY_ = playerCoordY;
+	coordY_ = playerCoordY;
 }
 

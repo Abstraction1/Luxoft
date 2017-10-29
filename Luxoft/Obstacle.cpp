@@ -1,22 +1,38 @@
 #include "Obstacle.h"
 
-char racing::Obstacle::GetObstCentrSymb() const
+racing::Obstacle::Obstacle()
 {
-	return obstCentrSymb_;
+	SetStartCoord(5, 5);
 }
 
-char racing::Obstacle::GetObstBoardSymb() const
+int racing::Obstacle::GetX() const
 {
-	return obstBoardSymb_;
+	return coordX_;
 }
 
-char racing::Obstacle::GetObstWheelsSymb() const
+int racing::Obstacle::GetY() const
 {
-	return obstWheelsSymb_;
+	return coordY_;
 }
 
-void racing::Obstacle::SetObstStartCoord(const int coordX, const int coordY)
+char racing::Obstacle::GetCentrSymb() const
 {
-	obstCoordX_ = coordX;
-	obstCoordX_ = coordY;;
+	return centrSymb_;
 }
+
+char racing::Obstacle::GetBoardSymb() const
+{
+	return boardSymb_;
+}
+
+char racing::Obstacle::GetWheelsSymb() const
+{
+	return wheelsSymb_;
+}
+
+void racing::Obstacle::SetStartCoord(const int coordX, const int coordY)
+{
+	coordX_ = coordX;
+	coordY_ = coordY;
+}
+

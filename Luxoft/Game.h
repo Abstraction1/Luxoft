@@ -14,9 +14,9 @@ namespace racing
 	{
 	public:
 		bool isGameOver;
-		int playerPoints;
-		int gameSpeed;
-		int speedometer;
+		int	 playerPoints;
+		int  gameSpeed;
+		int  speedometer;
 		char playStop;
 		char exitGame;
 
