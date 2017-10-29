@@ -2,40 +2,22 @@
 
 racing::Player::Player()
 {
-	centrSymb_ = 'X';
-	boardSymb_ = '|';
-	wheelsSymb_ = 'o';
-	SetStartCoord(5, 15);
-}
+	symb_ = new char[2];
+	symb_[0] = 'X';
+	symb_[1] = '|';
+	symb_[2] = 'o';
 
-int racing::Player::GetX() const
-{
-	return coordX_;
-}
-
-int racing::Player::GetY() const
-{
-	return coordY_;
-}
-
-char racing::Player::GetCentrSymb() const
-{
-	return centrSymb_;
-}
-
-char racing::Player::GetBoardSymb() const
-{
-	return boardSymb_;
-}
-
-char racing::Player::GetWheelsSymb() const
-{
-	return wheelsSymb_;
+	SetStartCoord(18, 5);
 }
 
 void racing::Player::SetStartCoord(const int playerX, const int playerY)
 {
 	coordX_ = playerX;
 	coordY_ = playerY;
+}
+
+racing::Player::~Player()
+{
+	delete[] symb_;
 }
 

@@ -6,17 +6,23 @@ namespace racing
 	{
 	public:
 		Player();
-		int GetX() const;
-		int GetY() const;
-		char GetCentrSymb() const;
-		char GetBoardSymb() const;
-		char GetWheelsSymb() const;
+		int GetX() const
+		{
+			return coordX_;
+		}
+		int GetY() const
+		{
+			return coordY_;
+		}
+		char* GetSymb() const
+		{
+			return symb_;
+		}
 		void SetStartCoord(const int coordX, const int coordY);
+		~Player();
 	private:
 		int coordX_;
 		int coordY_;
-		char centrSymb_;
-		char boardSymb_;
-		char wheelsSymb_;
+		char * symb_;
 	};
 }

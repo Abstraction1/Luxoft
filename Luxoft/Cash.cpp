@@ -5,23 +5,10 @@ racing::Cash::Cash()
 {
 	coordX_ = SetRandCoord();
 	coordY_ = SetRandCoord();
-	cashSymb_ = '$';
+	
+	symb_ = new char('$');
 }
 
-int racing::Cash::GetX() const
-{
-	return coordX_;
-}
-
-int racing::Cash::GetY() const
-{
-	return coordY_;
-}
-
-char racing::Cash::GetCashSymb() const
-{
-	return cashSymb_;
-}
 /*!
  * \function SetRandCoord 
  *
@@ -34,6 +21,11 @@ char racing::Cash::GetCashSymb() const
 const int racing::Cash::SetRandCoord()
 {
 	return rand() % 18;
+}
+
+racing::Cash::~Cash()
+{
+	delete symb_;
 }
 
 

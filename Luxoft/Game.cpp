@@ -19,53 +19,36 @@ racing::Game::Game()
 	obstacle_ = new racing::Obstacle();
 
 	isGameOver_ = false;
-	playerPoints_ = NULL;
+	playerPoints_ = 0;
 	gameSpeed_ = 200;
 	speedometer_ = 50;
 	exitGame_ = 27;
 	Run();
 }
 
-void racing::Game::Initialization(racing::Track * track, racing::Player * player,
-									racing::Obstacle * obstacle, racing::Cash * cash)
+void racing::Game::Initialization()
 {
-	int playerX = player->GetX();
-	int playerY = player->GetY();
-	int cashX = track->GetWidth();
-	int cashY = track->GetHeight();
-	int obstacleX = obstacle->GetX();
-	int obstacleY = obstacle->GetY();
-	char playerCentrSymb = player->GetCentrSymb();
+	int playerX = player_->GetX();
+	int playerY = player_->GetY();
+	int cashX = cash_->GetX();
+	int cashY = cash_->GetY();
+	int obstacleX = obstacle_->GetX();
+	int obstacleY = obstacle_->GetX();
+	char* playerSymb = player_->GetSymb();
+	char* cashSymb = cash_->GetSymb();
+	char* obstSymb = obstacle_->GetSymb();
 
-	trackArea_ = track->GetArea();
-
-	track->SetArea(playerX, playerY, playerCentrSymb);
-	
-	//track.SetArea(cashX, cashY);
-
-	/*track->area[player->x][player->y - 1] = player->left_board;
-	track->area[player->x][player->y + 1] = player->right_board;
-	track->area[player->x - 1][player->y - 1] = player->wheels;
-	track->area[player->x - 1][player->y + 1] = player->wheels;
-	track->area[player->x + 1][player->y - 1] = player->wheels;
-	track->area[player->x + 1][player->y + 1] = player->wheels;*/
-	//cash initialization
-	//track->area[Cash()->x][Cash()->y] = Cash()->cash_symb;
-	//obstacle initialization
-	/*track->area[obstacle->x][obstacle->y] = obstacle->car;
-	track->area[obstacle->x][obstacle->y - 1] = obstacle->left_board;
-	track->area[obstacle->x][obstacle->y + 1] = obstacle->right_board;
-	track->area[obstacle->x - 1][obstacle->y - 1] = obstacle->wheels;
-	track->area[obstacle->x - 1][obstacle->y + 1] = obstacle->wheels;
-	track->area[obstacle->x + 1][obstacle->y - 1] = obstacle->wheels;
-	track->area[obstacle->x + 1][obstacle->y + 1] = obstacle->wheels;*/
+	track_->SetArea(playerX, playerY, playerSymb);
+	track_->SetArea(obstacleX, obstacleY, obstSymb);
+	track_->SetArea(cashX, cashY, cashSymb);
 }
 
-void racing::Game::Print(const racing::Track* track)
+void racing::Game::Print()
 {
 	int i, j;
-	int width = track->GetWidth();
-	int height = track->GetHeight();
+	int width = track_->GetWidth();
+	int height = track_->GetHeight();
+	trackArea_ = track_->GetArea();
 
 	for (i = 0; i < width; i++) {
 		for (j = 0; j < height; j++) {
@@ -81,8 +64,8 @@ void racing::Game::Run()
 	{
 		Input();
 		Logic(playerPoints_, gameSpeed_, speedometer_, playStop_);
-		Initialization(track_, player_, obstacle_, cash_);
-		Print(track_);
+		Initialization();
+		Print();
 		Sleep(gameSpeed_);
 		clearScreen();
 	}
@@ -95,19 +78,19 @@ void racing::Game::Input()
 		switch (_getch())
 		{
 		case 'w':
-			dir = racing::Game::DIR_UP;
+			DIR = racing::Game::DIR_UP;
 			break;
 		case 's':
-			dir = racing::Game::DIR_DOWN;
+			DIR = racing::Game::DIR_DOWN;
 			break;
 		case 'a':
-			dir = racing::Game::DIR_LEFT;
+			DIR = racing::Game::DIR_LEFT;
 			break;
 		case 'd':
-			dir = racing::Game::DIR_RIGHT;
+			DIR = racing::Game::DIR_RIGHT;
 			break;
 		case 27:
-			isGameOver_ = true;
+			DIR = racing::Game::DIR_EXIT;
 			break;
 		}
 	}
@@ -127,7 +110,7 @@ void racing::Game::clearScreen()
 
 void racing::Game::Logic(int & points, int & speed, int & speedometer, char & playStop)
 {
-	/*switch (dir)
+	switch (DIR)
 	{
 	case racing::Game::DIR_LEFT:
 		player->y = player->y - 2;
@@ -143,8 +126,11 @@ void racing::Game::Logic(int & points, int & speed, int & speedometer, char & pl
 		speed += 5;
 		speedometer -= 5;
 		break;
+	case racing::Game::DIR_EXIT:
+		isGameOver_ = true;
+		break;
 	}
-*/
+
 	//player
 	//if (player->y <= 2)
 	//{
@@ -170,14 +156,13 @@ void racing::Game::Logic(int & points, int & speed, int & speedometer, char & pl
 	//	Cash()->x = 0;
 	//	Cash()->y = rand() % 16 + 1;
 	//}
-	//if (MyMethod();
 
 	//	Cash()->x = 0;
 	//	Cash()->y = rand() % 16 + 1;
 	//	points += 10;
 	//}
 
-	////obstacke
+	////obstacle
 	//obstacle->x++;
 	//if (obstacle->x == track->WIDTH - 1)
 	//{

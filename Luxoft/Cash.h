@@ -6,13 +6,23 @@ namespace racing
 	{
 	public:
 		Cash();
-		int GetX() const;
-		int GetY() const;
-		char GetCashSymb() const;
+		int GetX() const
+		{
+			return coordX_;
+		}
+		int GetY() const
+		{
+			return coordY_;
+		}
+		char* GetSymb() const
+		{
+			return symb_;
+		}
 		const int SetRandCoord();
+		~Cash();
 	private:
 		int coordX_;
 		int coordY_;
-		char cashSymb_;
+		char * symb_;
 	};
 }
