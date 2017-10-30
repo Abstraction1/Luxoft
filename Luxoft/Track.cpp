@@ -1,54 +1,26 @@
 #include "Track.h"
-#include "Player.h"
-#include "Cash.h"
 
-racing::Track::Track()
+Racing::Track::Track()
 {
-	width_ = 20;
-	height_ = 20;
-	trackBoard_ = '|';
-	trackSpace_ = ' ';
-
-	Initialization(width_, height_);
+	WIDTH = 20;
+	HEIGHT = 20;
+	area = 0;
 }
 
-racing::Track::~Track()
+Racing::Track::~Track()
 {
-	int i;
-	for (i = 0; i < width_; i++) {
-		delete[i] trackArea_;
+	for (int i = 0; i < WIDTH; i++)
+	{
+		delete[] area[i];
 	}
-	delete[] trackArea_;
+	delete[] area;
 }
 
-void racing::Track::Initialization(const int& width, const int& height)
+void Racing::Track::CreateTrack()
 {
-	int i, j;
-	trackArea_ = new char*[width];
-	for (i = 0; i < height; i++) {
-		trackArea_[i] = new char[height];
-	}
-	for (i = 0; i < width; i++) {
-		for (j = 0; j < height; j++) {
-			trackArea_[i][0] = trackBoard_;
-			trackArea_[i][height - 2] = trackBoard_;
-			trackArea_[i][j] = trackSpace_;
-		}
+	area = new char*[HEIGHT];
+	for (int i = 0; i < WIDTH; i++)
+	{
+		area[i] = new char[WIDTH];
 	}
 }
-
-void racing::Track::SetArea(const int& coordX, const int& coordY, 
-							const char* symb)
-{
-	trackArea_[coordX][coordY] = symb[0];
-	trackArea_[coordX + 1][coordY] = symb[1];
-	trackArea_[coordX - 1][coordY] = symb[1];
-	trackArea_[coordX - 1][coordY - 1] = symb[2];
-	trackArea_[coordX - 1][coordY + 1] = symb[2];
-	trackArea_[coordX + 1][coordY + 1] = symb[2];
-	trackArea_[coordX + 1][coordY - 1] = symb[2];
-}
-
-
-
-

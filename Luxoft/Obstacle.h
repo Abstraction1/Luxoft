@@ -1,24 +1,16 @@
 #pragma once
-
-namespace racing
+namespace Racing
 {
 	class Obstacle
 	{
 	public:
+		int x;
+		int y;
+		char car = '-';
+		char left_board = '|';
+		char right_board = '|';
+		char wheels = 'o';
+
 		Obstacle();
-		int GetX() const {
-			return coordX_;
-		}
-		int GetY() const {
-			return coordY_;
-		}
-		char* GetSymb() const {
-			return symb_;
-		}
-		void SetStartCoord(const int coordX, const int coordY);
-	private:
-		int coordX_;
-		int coordY_;
-		char * symb_;
 	};
 }

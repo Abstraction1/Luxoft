@@ -1,28 +1,14 @@
 #pragma once
 
-namespace racing
+namespace Racing
 {
 	class Cash
 	{
 	public:
+		int x;
+		int y;
+		char cash_symb = '$';
+
 		Cash();
-		int GetX() const
-		{
-			return coordX_;
-		}
-		int GetY() const
-		{
-			return coordY_;
-		}
-		char* GetSymb() const
-		{
-			return symb_;
-		}
-		const int SetRandCoord();
-		~Cash();
-	private:
-		int coordX_;
-		int coordY_;
-		char * symb_;
 	};
 }

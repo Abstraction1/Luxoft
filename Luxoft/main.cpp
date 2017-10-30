@@ -1,9 +1,7 @@
 #include "Game.h"
 
-
 int main()
 {
-	racing::Game game;
-	
+	Racing::Game game;
 	return 0;
 }

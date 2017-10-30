@@ -1,181 +1,202 @@
+#include "Game.h"
+#include <Windows.h>
 #include <iostream>
-#include <windows.h>
 #include <conio.h>
 #include <ctime>
 
-#include "Cash.h"
-#include "Game.h"
-#include "Obstacle.h"
-#include "Player.h"
-#include "Track.h"
-
-racing::Game::Game()
+Racing::Game::Game()
 {
-	srand((unsigned int)time(NULL));
+	srand(time(NULL));
 
-	track_ = new racing::Track();
-	player_ = new racing::Player();
-	cash_ = new racing::Cash();
-	obstacle_ = new racing::Obstacle();
+	track = new Racing::Track();
+	player = new Racing::Player();
+	cash = new Racing::Cash();
+	obstacle = new Racing::Obstacle();
 
-	isGameOver_ = false;
-	playerPoints_ = 0;
-	gameSpeed_ = 200;
-	speedometer_ = 50;
-	exitGame_ = 27;
+	track->CreateTrack();
+
+	game_over = false;
+	player_points = 0;
+	game_speed = 200;
+	speedometer = 50;
+
 	Run();
 }
 
-void racing::Game::Initialization()
+void Racing::Game::Initialization()
 {
-	int playerX = player_->GetX();
-	int playerY = player_->GetY();
-	int cashX = cash_->GetX();
-	int cashY = cash_->GetY();
-	int obstacleX = obstacle_->GetX();
-	int obstacleY = obstacle_->GetX();
-	char* playerSymb = player_->GetSymb();
-	char* cashSymb = cash_->GetSymb();
-	char* obstSymb = obstacle_->GetSymb();
+	dir = STOP;
 
-	track_->SetArea(playerX, playerY, playerSymb);
-	//track_->SetArea(obstacleX, obstacleY, obstSymb);
-	//track_->SetArea(cashX, cashY, cashSymb);
+	//track initialization
+	for (int i = 0; i < track->HEIGHT; i++)
+	{
+		for (int j = 0; j < track->WIDTH; j++)
+		{
+			track->area[i][0] = '|';
+			track->area[i][track->HEIGHT - 2] = '|';
+			track->area[i][j] = ' ';
+		}
+	}
+
+	//car initialization
+	track->area[player->x][player->y] = player->car;
+	track->area[player->x][player->y - 1] = player->left_board;
+	track->area[player->x][player->y + 1] = player->right_board;
+	track->area[player->x - 1][player->y - 1] = player->wheels;
+	track->area[player->x - 1][player->y + 1] = player->wheels;
+	track->area[player->x + 1][player->y - 1] = player->wheels;
+	track->area[player->x + 1][player->y + 1] = player->wheels;
+
+	//cash initialization
+	track->area[cash->x][cash->y] = cash->cash_symb;
+
+	//osbtracle initialization
+	track->area[obstacle->x][obstacle->y] = obstacle->car;
+	track->area[obstacle->x][obstacle->y - 1] = obstacle->left_board;
+	track->area[obstacle->x][obstacle->y + 1] = obstacle->right_board;
+	track->area[obstacle->x - 1][obstacle->y - 1] = obstacle->wheels;
+	track->area[obstacle->x - 1][obstacle->y + 1] = obstacle->wheels;
+	track->area[obstacle->x + 1][obstacle->y - 1] = obstacle->wheels;
+	track->area[obstacle->x + 1][obstacle->y + 1] = obstacle->wheels;
 }
 
-void racing::Game::Print()
+void Racing::Game::Print()
 {
-	int i, j;
-	int width = track_->GetWidth();
-	int height = track_->GetHeight();
-	trackArea_ = track_->GetArea();
-
-	for (i = 0; i < width; i++) {
-		for (j = 0; j < height; j++) {
-			std::cout << trackArea_[i][j];
+	for (int i = 0; i < track->HEIGHT; i++)
+	{
+		for (int j = 0; j < track->WIDTH; j++)
+		{
+			std::cout << track->area[i][j];
 		}
 		std::cout << std::endl;
 	}
+	std::cout << "X : " << obstacle->x << '\n';
+	std::cout << "Y : " << obstacle->y << '\n';
+
+	std::cout << "\nSpeedometr : " << speedometer << '\n';
+	std::cout << "\nPoints: " << player_points;
 }
 
-void racing::Game::Run()
+void Racing::Game::Run()
 {
-	while (!isGameOver_)
+	while (!game_over)
 	{
-		//Input();
-		//Logic(playerPoints_, gameSpeed_, speedometer_, playStop_);
+		input();
+		Logic(player_points, game_speed, speedometer, play_stop);
 		Initialization();
 		Print();
-		Sleep(gameSpeed_);
-		clearScreen();
+		Sleep(game_speed);
+		clearscreen();
 	}
 }
 
-void racing::Game::Input()
+void Racing::Game::input()
 {
 	while (_kbhit())
 	{
 		switch (_getch())
 		{
 		case 'w':
-			DIR = racing::Game::DIR_UP;
+			dir = UP;
 			break;
 		case 's':
-			DIR = racing::Game::DIR_DOWN;
+			dir = DOWN;
 			break;
 		case 'a':
-			DIR = racing::Game::DIR_LEFT;
+			dir = LEFT;
 			break;
 		case 'd':
-			DIR = racing::Game::DIR_RIGHT;
+			dir = RIGHT;
 			break;
 		case 27:
-			DIR = racing::Game::DIR_EXIT;
+			game_over = true;
 			break;
 		}
 	}
 }
 
-void racing::Game::clearScreen()
+void Racing::Game::clearscreen()
 {
-	HANDLE hout;
-	COORD position;
+	HANDLE hOut;
+	COORD Position;
 
-	hout = GetStdHandle(STD_OUTPUT_HANDLE);
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	position.X = 0;
-	position.Y = 0;
-	SetConsoleCursorPosition(hout, position);
+	Position.X = 0;
+	Position.Y = 0;
+	SetConsoleCursorPosition(hOut, Position);
 }
 
-void racing::Game::Logic(int & points, int & speed,
-						 int & speedometer, char & playStop)
+void Racing::Game::Logic(int& points, int& speed, int& speedometer, char& play_stop)
 {
-	switch (DIR)
+	switch (dir)
 	{
-	case racing::Game::DIR_LEFT:
-		player_--;
+	case Racing::Game::LEFT:
+		player->y = player->y - 2;
 		break;
-	case racing::Game::DIR_RIGHT:
-		player_++;
+	case Racing::Game::RIGHT:
+		player->y = player->y + 2;
 		break;
-	case racing::Game::DIR_UP:
+	case Racing::Game::UP:
 		speed -= 5;
 		speedometer += 5;
 		break;
-	case racing::Game::DIR_DOWN:
+	case Racing::Game::DOWN:
 		speed += 5;
 		speedometer -= 5;
 		break;
-	case racing::Game::DIR_EXIT:
-		isGameOver_ = true;
-		break;
 	}
 
+
 	//player
-	//if (player->y <= 2)
-	//{
-	//	player->y = 2;
-	//}
-	//if (player->y >= track->WIDTH - 4)
-	//{
-	//	player->y = track->WIDTH - 4;
-	//}
-	//if (player->x <= 1)
-	//{
-	//	player->x = 1;
-	//}
-	//if (player->x >= track->WIDTH - 2)
-	//{
-	//	player->x = track->WIDTH - 2;
-	//}
+	if (player->y <= 2)
+	{
+		player->y = 2;
+	}
+	if (player->y >= track->WIDTH - 4)
+	{
+		player->y = track->WIDTH - 4;
+	}
+	if (player->x <= 1)
+	{
+		player->x = 1;
+	}
+	if (player->x >= track->WIDTH - 2)
+	{
+		player->x = track->WIDTH - 2;
+	}
 
-	////cash
-	//Cash()->x += 2;
-	//if (Cash()->x >= track->WIDTH - 1)
-	//{
-	//	Cash()->x = 0;
-	//	Cash()->y = rand() % 16 + 1;
-	//}
+	//cash 
+	cash->x += 2;
+	if (cash->x >= track->WIDTH - 1)
+	{
+		cash->x = 0;
+		cash->y = rand() % 16 + 1;
+	}
+	if (cash->x == player->x && cash->y == player->y ||
+		cash->x == player->x + 1 && cash->y == player->y ||
+		cash->x == player->x - 1 && cash->y == player->y ||
+		cash->x == player->x + 1 && cash->y + 1 == player->y ||
+		cash->x == player->x + 1 && cash->y - 1 == player->y ||
+		cash->x == player->x - 1 && cash->y + 1 == player->y ||
+		cash->x == player->x - 1 && cash->y - 1 == player->y)
+	{
+		cash->x = 0;
+		cash->y = rand() % 16 + 1;
+		points += 10;
+	}
 
-	//	Cash()->x = 0;
-	//	Cash()->y = rand() % 16 + 1;
-	//	points += 10;
-	//}
-
-	////obstacle
-	//obstacle->x++;
-	//if (obstacle->x == track->WIDTH - 1)
-	//{
-	//	obstacle->x = 1;
-	//	obstacle->y = rand() % 15 + 2;
-	//}
-	//if (obstacle->x + 1 == player->x + 1 && obstacle->y - 1 == player->y - 1 ||
-	//	obstacle->x - 1 == player->x + 1 && obstacle->y + 1 == player->y + 1 ||
-	//	obstacle->x == player->x && obstacle->y == player->y)
-	//{
-	//	gameSpeed_ = true;
-	//}
+	//obstracle
+	obstacle->x++;
+	if (obstacle->x == track->WIDTH - 1)
+	{
+		obstacle->x = 1;
+		obstacle->y = rand() % 15 + 2;
+	}
+	if (obstacle->x + 1 == player->x + 1 && obstacle->y - 1 == player->y - 1 ||
+		obstacle->x - 1 == player->x + 1 && obstacle->y + 1 == player->y + 1 ||
+		obstacle->x == player->x && obstacle->y == player->y)
+	{
+		game_over = true;
+	}
 }
-
-

@@ -1,18 +1,8 @@
 #include "Obstacle.h"
+#include <cstdlib>
 
-racing::Obstacle::Obstacle()
+Racing::Obstacle::Obstacle()
 {
-
-	symb_[0] = '|';
-	symb_[1] = 'X';
-	symb_[2] = 'o';
-
-	SetStartCoord(5, 5);
+	x = 1;
+	y = rand() % 16 + 2;
 }
-
-void racing::Obstacle::SetStartCoord(const int coordX, const int coordY)
-{
-	coordX_ = coordX;
-	coordY_ = coordY;
-}
-

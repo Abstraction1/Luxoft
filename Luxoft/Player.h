@@ -1,30 +1,16 @@
 #pragma once
-
-namespace racing
+namespace Racing
 {
 	class Player
 	{
 	public:
+		int x;
+		int y;
+		char car = 'X';
+		char left_board = '|';
+		char right_board = '|';
+		char wheels = 'o';
+
 		Player();
-		int GetX() const
-		{
-			return coordX_;
-		}
-		int GetY() const
-		{
-			return coordY_;
-		}
-		char* GetSymb() const
-		{
-			return symb_;
-		}
-		void SetStartCoord(const int coordX, const int coordY);
-		Player& Player::operator--();
-		Player& Player::operator++();
-		~Player();
-	private:
-		int coordX_;
-		int coordY_;
-		char * symb_;
 	};
 }
